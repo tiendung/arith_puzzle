@@ -1,11 +1,17 @@
-Autotest Guide
+Use Permutation
+http://snippets.dzone.com/posts/show/3332
 
+Required Gems
+-------------
+> gem install permutation active_support hpricot
+
+Autotest Guide
+--------------
 Please install ZenTest gem
 > gem install ZenTest
 Then run
 > ./autospec
 
----------------
 
 Your goal is to:
 1. Use a machine where you have Linux or MacOS X running.  

@@ -1,6 +1,19 @@
 require 'spec_helper'
 
 describe ArithPuzzle::Case do
+  {
+    { :equation => "957=52",    :operators => "+*"      } => "9*5+7=52",
+    { :equation => "123=456",   :operators => "+ + - *" } => "1*2+3=4-5+6",
+    { :equation => "1 3 5=64 2",:operators => "++**"    } => "NO SOLUTION",
+    { :equation => "8916 = 95", :operators => "/ / +"   } => "89/1/6=9+5",
+    { :equation => "12=34",     :operators => "+-"      } => "NO SOLUTION"
+  }.each do |input, output|
+    it "#{input.inspect} => #{output}" do
+      c = ArithPuzzle::Case.new(input[:equation], input[:operators])
+      c.first_solution.should == output
+    end
+  end
+  
   [ 
     "\n\na",
     "+x"
@@ -19,11 +32,11 @@ describe ArithPuzzle::Case do
     "12=3" => "+-",
     "23=45" => "++++"
   }.each do |equation, operators|
-    it "should raise TooMuchOperators" do
+    it "should raise TooManyOperators" do
       begin
         ArithPuzzle::Case.new(equation, operators)
       rescue StandardError => e
-        e.class.should == ArithPuzzle::Case::TooMuchOperators
+        e.class.should == ArithPuzzle::Case::TooManyOperators
       end
     end
   end

@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'hpricot'
 require 'active_support'
+require 'permutation'
 require 'lib/string_ext'
 require 'lib/case'
 

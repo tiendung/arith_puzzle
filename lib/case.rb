@@ -24,7 +24,7 @@ module ArithPuzzle
     class NoOperator < OperatorError
     end
 
-    class TooMuchOperators < OperatorError
+    class TooManyOperators < OperatorError
     end
       
     attr_reader :left_part, :right_part, :operators
@@ -47,12 +47,29 @@ module ArithPuzzle
       @right_part = parts.last
       @slot_size = @left_part.size + @right_part.size - 2
       
-      raise TooMuchOperators if @slot_size < @operators.size
+      raise TooManyOperators if @slot_size < @operators.size
     end
     
+    def build_equation(comb)
+      left_comb = comb[0..@left_part.size-2]
+      right_comb = comb[@left_part.size-1..-1]
+
+      [ @left_part.build_part(@operators, left_comb),
+        '==',
+        @right_part.build_part(@operators, right_comb)
+      ].join
+    end
     
-    
-    def solutions
+    def first_solution
+      Permutation.new(@slot_size).each do |perm|
+        equation = build_equation(perm.value)
+        puts equation
+        begin
+          return equation.sub('==','=') if eval(equation)
+        rescue
+        end
+      end
+      return "NO SOLUTION"
     end
   end
 end
