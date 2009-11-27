@@ -38,7 +38,7 @@ module ArithPuzzle
       right_combination = combination[@left_part.size-1..-1]
 
       [ @left_part.build_part(@operators, left_combination),
-        '==',
+        '=',
         @right_part.build_part(@operators, right_combination)
       ].join
     end
@@ -47,7 +47,7 @@ module ArithPuzzle
       Permutation.new(@slot_size).each do |permutation|
         solution = build_solution(permutation.value)
         begin
-          return solution.sub('==','=') if eval(solution)
+          return solution if eval(solution.sub('=','=='))
         rescue
           # Skip divided by zero exception
         end
