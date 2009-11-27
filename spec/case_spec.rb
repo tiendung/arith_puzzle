@@ -7,11 +7,20 @@ describe ArithPuzzle::Case do
     { :equation => "1 3 5=64 2",:operators => "++**"    } => "NO SOLUTION",
     { :equation => "8916 = 95", :operators => "/ / +"   } => "89/1/6=9+5",
     { :equation => "12=34",     :operators => "+-"      } => "NO SOLUTION",
-    { :equation => "10=22",     :operators => "/+"      } => "1+0=2/2"
+    { :equation => "10=22",     :operators => "/+"      } => "1+0=2/2",
+    { :equation => "1=1",       :operators => "+"       } => ArithPuzzle::Case::TooManyOperators,
+    { :equation => "=",         :operators => "/"       } => ArithPuzzle::Case::EquationError,
+    { :equation => '342=23',    :operators => '+-'      } => "NO SOLUTION",
+    { :equation => '342=23',    :operators => '++-'      } => "3+4-2=2+3"
   }.each do |input, output|
     it "#{input.inspect} => #{output}" do
-      c = ArithPuzzle::Case.new(input[:equation], input[:operators])
-      c.first_solution.should == output
+      c, e = nil
+      begin
+        c = ArithPuzzle::Case.new(input[:equation], input[:operators])
+      rescue StandardError => e
+        e.class.should == output
+      end
+      c.first_solution.should == output unless e
     end
   end
   
