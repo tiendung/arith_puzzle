@@ -1,3 +1,12 @@
+Autotest Guide
+
+Please install ZenTest gem
+> gem install ZenTest
+Then run
+> ./autospec
+
+---------------
+
 Your goal is to:
 1. Use a machine where you have Linux or MacOS X running.  
    You can install Linux easily via http://wubi-installer.org/
