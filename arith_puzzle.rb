@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 require 'rubygems'
 require 'hpricot'
+require 'active_support'
 require 'lib/string_ext'
 require 'lib/case'
 
