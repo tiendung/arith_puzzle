@@ -6,7 +6,8 @@ describe ArithPuzzle::Case do
     { :equation => "123=456",   :operators => "+ + - *" } => "1*2+3=4-5+6",
     { :equation => "1 3 5=64 2",:operators => "++**"    } => "NO SOLUTION",
     { :equation => "8916 = 95", :operators => "/ / +"   } => "89/1/6=9+5",
-    { :equation => "12=34",     :operators => "+-"      } => "NO SOLUTION"
+    { :equation => "12=34",     :operators => "+-"      } => "NO SOLUTION",
+    { :equation => "10=22",     :operators => "/+"      } => "1+0=2/2"
   }.each do |input, output|
     it "#{input.inspect} => #{output}" do
       c = ArithPuzzle::Case.new(input[:equation], input[:operators])

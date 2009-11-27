@@ -49,6 +49,7 @@ module ArithPuzzle
         begin
           return solution.sub('==','=') if eval(solution)
         rescue
+          # Skip divided by zero exception
         end
       end
       return "NO SOLUTION"
