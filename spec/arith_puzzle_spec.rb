@@ -6,9 +6,9 @@ describe ArithPuzzle do
     output.should == <<-EOS
 Case abc: 9*5+7=52
 Case def: 1*2+3=4-5+6
-Case ghi: 1+3*5=6+4*2
+Case ghi: NO SOLUTION
 Case jkl: NO SOLUTION
-Case mno: 8+9/16=9/5
+Case mno: 89/1/6=9+5
 EOS
   end
 
