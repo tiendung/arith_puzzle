@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 require 'rubygems'
 require 'hpricot'
+require 'lib/string_ext'
 require 'lib/case'
 
 module ArithPuzzle
