@@ -50,22 +50,21 @@ module ArithPuzzle
       raise TooManyOperators if @slot_size < @operators.size
     end
     
-    def build_equation(comb)
-      left_comb = comb[0..@left_part.size-2]
-      right_comb = comb[@left_part.size-1..-1]
+    def build_solution(combination)
+      left_combination = combination[0..@left_part.size-2]
+      right_combination = combination[@left_part.size-1..-1]
 
-      [ @left_part.build_part(@operators, left_comb),
+      [ @left_part.build_part(@operators, left_combination),
         '==',
-        @right_part.build_part(@operators, right_comb)
+        @right_part.build_part(@operators, right_combination)
       ].join
     end
     
     def first_solution
-      Permutation.new(@slot_size).each do |perm|
-        equation = build_equation(perm.value)
-        puts equation
+      Permutation.new(@slot_size).each do |permutation|
+        solution = build_solution(permutation.value)
         begin
-          return equation.sub('==','=') if eval(equation)
+          return solution.sub('==','=') if eval(solution)
         rescue
         end
       end
