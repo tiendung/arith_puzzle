@@ -1,31 +1,14 @@
 module ArithPuzzle
   class Case
-    class EquationError < StandardError
-    end
-    
-  	class LeftPartMissing < EquationError
-  	end
-
-  	class RightPartMissing < EquationError
-  	end
-  	
-  	class InvalidCharacter < EquationError
-	  end
-	  
-	  class MoreThanTenDigits < EquationError
-    end
-    
-    class OperatorError < StandardError
-    end
-    
-    class InvalidOperator < OperatorError
-    end
-    
-    class NoOperator < OperatorError
-    end
-
-    class TooManyOperators < OperatorError
-    end
+    class EquationError < StandardError; end
+    class LeftPartMissing < EquationError; end
+    class RightPartMissing < EquationError; end
+    class InvalidCharacter < EquationError; end
+    class MoreThanTenDigits < EquationError; end
+    class OperatorError < StandardError; end
+    class InvalidOperator < OperatorError; end
+    class NoOperator < OperatorError; end
+    class TooManyOperators < OperatorError; end
       
     attr_reader :left_part, :right_part, :operators
 
