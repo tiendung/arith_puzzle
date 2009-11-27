@@ -15,7 +15,13 @@ module ArithPuzzle
 	  class MoreThanTenDigits < EquationError
     end
     
-    class InvalidOperator < StandardError
+    class OperatorError < StandardError
+    end
+    
+    class InvalidOperator < OperatorError
+    end
+    
+    class NoOperator < OperatorError
     end
 
     attr_reader :left_part, :right_part, :operators
@@ -23,6 +29,7 @@ module ArithPuzzle
     def initialize(equation, operators)
       @operators = operators.remove_blanks      
       raise InvalidOperator if @operators =~ /[^\+\-\*\/]/
+      raise NoOperator if @operators.blank?
 
       @equation = equation.remove_blanks
 

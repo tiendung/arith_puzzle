@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe ArithPuzzle::Case do
   [ 
-    "\n",
     "\n\na",
     "+x"
   ].each do |operators|
@@ -11,6 +10,21 @@ describe ArithPuzzle::Case do
         ArithPuzzle::Case.new("1=2", operators)
       rescue StandardError => e
         e.class.should == ArithPuzzle::Case::InvalidOperator
+      end
+    end
+  end
+  
+  [ 
+    "\n",
+    "\n\n",
+    "    ",
+    ""
+  ].each do |operators|
+    it "should raise NoOperator" do
+      begin
+        ArithPuzzle::Case.new("1=2", operators)
+      rescue StandardError => e
+        e.class.should == ArithPuzzle::Case::NoOperator
       end
     end
   end
