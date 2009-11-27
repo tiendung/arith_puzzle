@@ -10,14 +10,14 @@ module ArithPuzzle
     class NoOperator < OperatorError; end
     class TooManyOperators < OperatorError; end
       
-    attr_reader :left_part, :right_part, :operators
+    attr_reader :left_part, :right_part, :operators, :case_id
 
-    def initialize(equation, operators)
-      @operators = operators.remove_blanks      
+    def initialize(data)
+      @operators = data[:operators].remove_blanks      
       raise InvalidOperator if @operators =~ /[^\+\-\*\/]/
       raise NoOperator if @operators.blank?
 
-      @equation = equation.remove_blanks
+      @equation = data[:equation].remove_blanks
 
       raise InvalidCharacter if @equation =~ /[^\d=]/
       parts = @equation.split('=')
@@ -31,6 +31,8 @@ module ArithPuzzle
       @slot_size = @left_part.size + @right_part.size - 2
       
       raise TooManyOperators if @slot_size < @operators.size
+      
+      @case_id = data[:case_id]
     end
     
     def build_solution(combination)
@@ -53,6 +55,10 @@ module ArithPuzzle
         end
       end
       return "NO SOLUTION"
+    end
+  
+    def to_s
+      "Case #{@case_id}: #{first_solution}\n"
     end
   end
 end

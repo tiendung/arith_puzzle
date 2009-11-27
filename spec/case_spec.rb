@@ -16,7 +16,7 @@ describe ArithPuzzle::Case do
     it "#{input.inspect} => #{output}" do
       c, e = nil
       begin
-        c = ArithPuzzle::Case.new(input[:equation], input[:operators])
+        c = ArithPuzzle::Case.new(input)
       rescue StandardError => e
         e.class.should == output
       end
@@ -30,21 +30,21 @@ describe ArithPuzzle::Case do
   ].each do |operators|
     it "should raise InvalidOperator" do
       begin
-        ArithPuzzle::Case.new("1=2", operators)
+        ArithPuzzle::Case.new(:equation => "1=2", :operators => operators)
       rescue StandardError => e
         e.class.should == ArithPuzzle::Case::InvalidOperator
       end
     end
   end
   
-  {
-    "1=2" => "+",
-    "12=3" => "+-",
-    "23=45" => "++++"
-  }.each do |equation, operators|
+  [
+    { :equation => "1=2",   :operators => "+"   },
+    { :equation => "12=3",  :operators => "+-"  },
+    { :equation => "23=45", :operators => "++++"}
+  ].each do |input|
     it "should raise TooManyOperators" do
       begin
-        ArithPuzzle::Case.new(equation, operators)
+        ArithPuzzle::Case.new(input)
       rescue StandardError => e
         e.class.should == ArithPuzzle::Case::TooManyOperators
       end
@@ -59,7 +59,7 @@ describe ArithPuzzle::Case do
   ].each do |operators|
     it "should raise NoOperator" do
       begin
-        ArithPuzzle::Case.new("1=2", operators)
+        ArithPuzzle::Case.new(:equation => "1=2", :operators => operators)
       rescue StandardError => e
         e.class.should == ArithPuzzle::Case::NoOperator
       end
@@ -77,7 +77,7 @@ describe ArithPuzzle::Case do
   }.each do |equation, exception_class|
     it "equation '#{equation}' should raise '#{exception_class}'" do
       begin
-        ArithPuzzle::Case.new(equation, '*')
+        ArithPuzzle::Case.new(:equation => equation, :operators => '*')
       rescue StandardError => e
         e.class.should == exception_class
       end
@@ -90,7 +90,7 @@ describe ArithPuzzle::Case do
     "1 3 \n    5=64 2\n    " => ['135', '642']
   }.each do |equation, left_right|
     it "shoud normalize and parse equation to left_part and right_part correctly" do
-      c = ArithPuzzle::Case.new(equation, "/")
+      c = ArithPuzzle::Case.new(:equation => equation, :operators => "/")
       [c.left_part, c.right_part].should == left_right
     end
   end
@@ -100,7 +100,7 @@ describe ArithPuzzle::Case do
     "    / / +\n\n" => '//+'
   }.each do |input, output|
     it "should normalize operators" do
-      ArithPuzzle::Case.new("01234=56789", input).operators.should == output
+      ArithPuzzle::Case.new(:equation => "01234=56789", :operators => input).operators.should == output
     end
   end  
 end
