@@ -14,6 +14,20 @@ describe ArithPuzzle::Case do
     end
   end
   
+  {
+    "1=2" => "+",
+    "12=3" => "+-",
+    "23=45" => "++++"
+  }.each do |equation, operators|
+    it "should raise TooMuchOperators" do
+      begin
+        ArithPuzzle::Case.new(equation, operators)
+      rescue StandardError => e
+        e.class.should == ArithPuzzle::Case::TooMuchOperators
+      end
+    end
+  end
+  
   [ 
     "\n",
     "\n\n",
@@ -31,7 +45,7 @@ describe ArithPuzzle::Case do
   
   {
     "=" => ArithPuzzle::Case::EquationError,
-    "1=" => ArithPuzzle::Case::RightPartMissing,
+    "21=" => ArithPuzzle::Case::RightPartMissing,
     "=23" => ArithPuzzle::Case::LeftPartMissing,
     "1=2=3" => ArithPuzzle::Case::EquationError,
     "ab" => ArithPuzzle::Case::InvalidCharacter,
@@ -63,7 +77,7 @@ describe ArithPuzzle::Case do
     "    / / +\n\n" => '//+'
   }.each do |input, output|
     it "should normalize operators" do
-      ArithPuzzle::Case.new("1=2", input).operators.should == output
+      ArithPuzzle::Case.new("01234=56789", input).operators.should == output
     end
   end  
 end

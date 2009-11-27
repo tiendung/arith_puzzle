@@ -24,6 +24,9 @@ module ArithPuzzle
     class NoOperator < OperatorError
     end
 
+    class TooMuchOperators < OperatorError
+    end
+      
     attr_reader :left_part, :right_part, :operators
 
     def initialize(equation, operators)
@@ -42,7 +45,11 @@ module ArithPuzzle
       
       @left_part = parts.first
       @right_part = parts.last
+      @slot_size = @left_part.size + @right_part.size - 2
+      
+      raise TooMuchOperators if @slot_size < @operators.size
     end
+    
     
     
     def solutions
